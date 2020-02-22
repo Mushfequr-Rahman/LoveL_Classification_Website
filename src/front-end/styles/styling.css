@@ -7,3 +7,9 @@
 #page-logo {
     margin-right: 3rem;
 }
+
+#title {
+    color: purple;
+    font-family: "Brush Script MT", "Brush Script Std", cursive;
+    font-size: 5rem;
+}
