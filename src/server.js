@@ -1,12 +1,6 @@
-let express = require("express");
-let app = express();
+const express = require('express');
+const app = express();
 
-app.use(function(req, res, next) {
-    console.log("New Connection");
-});
+app.use(express.static('./static/public'));
 
-app.use(express.static("static/"));
-
-app.listen(1660, function() {
-    console.log("Serving Static on 1660");
-});
+app.listen(3000, () => console.log('LoveL app on 3000'));

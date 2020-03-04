@@ -2,7 +2,9 @@
     "name": "LoveL",
     "version": "1.0.0",
     "dependencies": {
-        "express": "latest"
-
+        "@tensorflow/tfjs": "^1.5.2",
+        "d3": "^5.15.0",
+        "express": "latest",
+        "mongodb": "^3.5.4"
     }
 }
