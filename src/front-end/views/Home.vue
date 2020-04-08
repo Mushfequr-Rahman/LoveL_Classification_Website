@@ -1,5 +1,9 @@
 <template>
-    <section class="hero is-medium is-danger is-bold">
+    <section class="hero is-danger is-bold">
+        <div class="is-widescreen test-button">
+
+            <a href="/test" class="fill-div">CLICK ME FOR QUICK TEST</a>
+        </div>
         <div class="hero-body">
             <div class="columns container is-fluid is-centered">
                 <div class="column is-one-fifth">
@@ -58,4 +62,29 @@ export default {
 </script>
 
 <style lang="scss">
+.test-button {
+    text-align: center;
+    background-color: purple;
+    margin-left: 0px;
+    padding: 2rem;
+    font-weight: bold;
+}
+.hero-body {
+    padding-top: 5rem
+}
+.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+.fill-div:hover {
+  color: #eb0784;
+}
+a:link {
+  color: white;
+}
+a:visited {
+  color: white;
+}
 </style>
