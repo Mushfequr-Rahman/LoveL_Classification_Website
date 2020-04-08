@@ -69,9 +69,6 @@ export default {
     padding: 2rem;
     font-weight: bold;
 }
-.hero-body {
-    padding-top: 5rem
-}
 .fill-div {
     display: block;
     height: 100%;

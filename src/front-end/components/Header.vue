@@ -1,7 +1,7 @@
 <template>
     <nav id="navigation-bar" class="navbar container is-fluid" role="navigation" aria-label="main navigation">
         <div id="page-logo" class="navbar-brand">
-            <a class="navbar-logo" href="#">
+            <a class="navbar-logo" href="/">
                 <!--img src="https://www.5lovelanguages.com/app/themes/5love/static/images/nav/header_logo.png" alt="5 Love Languages" /-->
                 <img src ="@/img/logo_source.png" />
             </a>
