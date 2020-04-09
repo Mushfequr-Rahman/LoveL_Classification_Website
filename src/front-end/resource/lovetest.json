@@ -1,26 +1,24 @@
 [
   {
     "loveLang": {
-      "Words": 1,
-      "Service": 2,
-      "Gifts": 3,
-      "QualityTime": 4,
-      "PhysicalTouch": 5
+      "1": "Words of Affirmation",
+      "2": "Act of Service",
+      "3": "Receiving Gift",
+      "4": "Quality Time",
+      "5": "PhysicalTouch"
     },
     "test": [
       {
         "question": "Which of the followings meanas more to you?",
         "op1": "I enjoy more when my partner took my hands in the public.",
         "op2": "When I am busy, my parter thinks of me and helped me with the housechores without asking.",
-        "love1": 5,
-        "love2": 2
+        "answer": [5,2]
       },
       {
         "question": "Which of the followings meanas more to you?",
         "op1": "It makes me feel more loved when I received a surprising gift.",
         "op2": "There is nothing better than staying just besides my partner and enjoy our private time.",
-        "love1": 3,
-        "love2": 4
+        "answer": [2,4]
       }
     ]
   }

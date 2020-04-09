@@ -2,7 +2,7 @@
   "name": "LoveL",
   "version": "1.0.0",
   "scripts": {
-    "serve": "vue-cli-service serve front-end/main.js",
+    "serve": "vue-cli-service serve front-end/main.js --port 9000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
