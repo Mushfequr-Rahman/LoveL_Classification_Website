@@ -5,11 +5,14 @@
                 <!--img src="https://www.5lovelanguages.com/app/themes/5love/static/images/nav/header_logo.png" alt="5 Love Languages" /-->
                 <img src ="@/img/logo_source.png" />
             </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="dropdown-menu">
+            <a  role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="dropdown-menu">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
+        </div>
+        <div> 
+            <div @click="getSampleData()" Click here to test />
         </div>
         <div class="navbar-menu" id="dropdown-menu">
             <div class="navbar-start">
@@ -37,7 +40,19 @@ export default {
   name: 'Header',
   props: {
     title: String
-  }
+  },
+
+
+methods:
+{
+    getSampleData: function (route){
+        fetch("http://localhost:3000/dummy_user").then(function(data)
+        {
+            console.log("received Data From server:",data)
+        })
+
+    }
+}
 }
 </script>
 

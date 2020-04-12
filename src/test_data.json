@@ -1,0 +1,303 @@
+[
+  {
+    "id": "5e92ce35272e19c8aac92f40",
+    "username": "Travis",
+    "password": "Graves",
+    "email": "reillygraves@exostream.com",
+    "name": "Rivera",
+    "messages": [
+      {
+        "id": 0,
+        "time": "2016-10-04T04:04:11 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 1,
+        "time": "2018-07-05T02:02:38 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 2,
+        "time": "2014-12-11T09:04:32 +05:00",
+        "content": "This is a message"
+      }
+    ],
+    "points": {
+      "touch": 4,
+      "time": 2,
+      "gift": 8,
+      "service": 3,
+      "words": 4
+    },
+    "partner": {
+      "id": 0,
+      "name": "Dorthy ",
+      "messages": [],
+      "points": {
+        "touch": 4,
+        "time": 2,
+        "gift": 8,
+        "service": 3,
+        "words": 4
+      }
+    }
+  },
+  {
+    "id": "5e92ce35bb860977df4d94d2",
+    "username": "Kirk",
+    "password": "Gutierrez",
+    "email": "dorthygutierrez@exostream.com",
+    "name": "Kirsten",
+    "messages": [
+      {
+        "id": 0,
+        "time": "2018-03-07T03:43:56 +05:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 1,
+        "time": "2019-01-27T07:51:28 +05:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 2,
+        "time": "2019-11-29T07:44:22 +05:00",
+        "content": "This is a message"
+      }
+    ],
+    "points": {
+      "touch": 4,
+      "time": 2,
+      "gift": 8,
+      "service": 3,
+      "words": 4
+    },
+    "partner": {
+      "id": 1,
+      "name": "Reed ",
+      "messages": [],
+      "points": {
+        "touch": 4,
+        "time": 2,
+        "gift": 8,
+        "service": 3,
+        "words": 4
+      }
+    }
+  },
+  {
+    "id": "5e92ce359845c83fb1e5d363",
+    "username": "Ingram",
+    "password": "Daniels",
+    "email": "reeddaniels@exostream.com",
+    "name": "Berg",
+    "messages": [
+      {
+        "id": 0,
+        "time": "2015-08-24T05:39:50 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 1,
+        "time": "2020-02-02T11:23:23 +05:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 2,
+        "time": "2017-10-05T01:45:53 +04:00",
+        "content": "This is a message"
+      }
+    ],
+    "points": {
+      "touch": 4,
+      "time": 2,
+      "gift": 8,
+      "service": 3,
+      "words": 4
+    },
+    "partner": {
+      "id": 2,
+      "name": "Monica ",
+      "messages": [],
+      "points": {
+        "touch": 4,
+        "time": 2,
+        "gift": 8,
+        "service": 3,
+        "words": 4
+      }
+    }
+  },
+  {
+    "id": "5e92ce355bb0da468d2a9e50",
+    "username": "Perez",
+    "password": "Ross",
+    "email": "monicaross@exostream.com",
+    "name": "Mitchell",
+    "messages": [
+      {
+        "id": 0,
+        "time": "2014-08-13T05:07:06 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 1,
+        "time": "2017-09-23T04:10:38 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 2,
+        "time": "2020-02-11T05:49:18 +05:00",
+        "content": "This is a message"
+      }
+    ],
+    "points": {
+      "touch": 4,
+      "time": 2,
+      "gift": 8,
+      "service": 3,
+      "words": 4
+    },
+    "partner": {
+      "id": 3,
+      "name": "Carrie ",
+      "messages": [],
+      "points": {
+        "touch": 4,
+        "time": 2,
+        "gift": 8,
+        "service": 3,
+        "words": 4
+      }
+    }
+  },
+  {
+    "id": "5e92ce358f864962e33a01ec",
+    "username": "Cotton",
+    "password": "Gibson",
+    "email": "carriegibson@exostream.com",
+    "name": "Davidson",
+    "messages": [
+      {
+        "id": 0,
+        "time": "2017-09-18T07:57:02 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 1,
+        "time": "2015-09-07T11:12:15 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 2,
+        "time": "2018-06-26T01:23:45 +04:00",
+        "content": "This is a message"
+      }
+    ],
+    "points": {
+      "touch": 4,
+      "time": 2,
+      "gift": 8,
+      "service": 3,
+      "words": 4
+    },
+    "partner": {
+      "id": 4,
+      "name": "Floyd ",
+      "messages": [],
+      "points": {
+        "touch": 4,
+        "time": 2,
+        "gift": 8,
+        "service": 3,
+        "words": 4
+      }
+    }
+  },
+  {
+    "id": "5e92ce35a5b56c159c3eb3db",
+    "username": "Michael",
+    "password": "Mcbride",
+    "email": "floydmcbride@exostream.com",
+    "name": "Reid",
+    "messages": [
+      {
+        "id": 0,
+        "time": "2014-11-04T04:54:18 +05:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 1,
+        "time": "2019-04-03T05:47:35 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 2,
+        "time": "2015-04-25T12:08:15 +04:00",
+        "content": "This is a message"
+      }
+    ],
+    "points": {
+      "touch": 4,
+      "time": 2,
+      "gift": 8,
+      "service": 3,
+      "words": 4
+    },
+    "partner": {
+      "id": 5,
+      "name": "Rich ",
+      "messages": [],
+      "points": {
+        "touch": 4,
+        "time": 2,
+        "gift": 8,
+        "service": 3,
+        "words": 4
+      }
+    }
+  },
+  {
+    "id": "5e92ce35dead43c133914e73",
+    "username": "Madden",
+    "password": "May",
+    "email": "richmay@exostream.com",
+    "name": "Nixon",
+    "messages": [
+      {
+        "id": 0,
+        "time": "2016-10-17T09:30:49 +04:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 1,
+        "time": "2019-11-12T03:51:20 +05:00",
+        "content": "This is a message"
+      },
+      {
+        "id": 2,
+        "time": "2017-07-23T02:43:23 +04:00",
+        "content": "This is a message"
+      }
+    ],
+    "points": {
+      "touch": 4,
+      "time": 2,
+      "gift": 8,
+      "service": 3,
+      "words": 4
+    },
+    "partner": {
+      "id": 6,
+      "name": "Pearson ",
+      "messages": [],
+      "points": {
+        "touch": 4,
+        "time": 2,
+        "gift": 8,
+        "service": 3,
+        "words": 4
+      }
+    }
+  }
+]
