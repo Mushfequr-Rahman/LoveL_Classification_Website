@@ -8,6 +8,7 @@
     },
     "dependencies": {
         "@tensorflow/tfjs": "^1.5.2",
+        "@tensorflow/tfjs-node": "^1.7.2",
         "assert": "^2.0.0",
         "axios": "^0.19.2",
         "bcrypt-nodejs": "0.0.3",
