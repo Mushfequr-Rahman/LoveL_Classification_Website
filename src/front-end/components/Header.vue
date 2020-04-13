@@ -22,7 +22,7 @@
             </div>
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <a class="button is-danger is-rounded" href="signup.html">Sign Up</a>
+                    <a class="button is-danger is-rounded" href="/signup">Sign Up</a>
                 </div>
                 <div class="navbar-item">
                     <a class="button is-danger is-rounded" href="/login">Login</a><br>
@@ -40,6 +40,9 @@ export default {
   name: 'Header',
   props: {
     title: String
+  },
+  created: function () {
+    document.title = '5 Love Languages'
   },
   mounted: function () {
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)

@@ -1,20 +1,32 @@
 <template>
-    <section class="hero is-danger is-bold">
+    <section class="hero is-danger is-bold ">
         <div class="is-widescreen test-button">
-            LOGIN PAGE
+            PLEASE LOGIN TO YOUR ACCOUNT
         </div>
         <div class="hero-body">
-            <form @submit.prevent="submit()">
+            <form @submit.prevent="submit()" id="login-form">
                 <div class="form-group">
-                    <label for="username"> Username: </label>
-                    <input type="text" v-model="loginInfo.user"/>
+                  <label class="label has-text-grey-lighter">Username</label>
+                  <div class="control">
+                    <input class="input is-success" type="text" placeholder="Enter your username" v-model="loginInfo.user">
+                    <!-- <input type="text" v-model="loginInfo.user"/> -->
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="password"> Password: </label>
-                  <input type="text" v-model="loginInfo.pass"/>
+                    <label class="label has-text-grey-lighter">Password</label>
+                    <p class="control">
+                      <input class="input" type="password" placeholder="Password" v-model="loginInfo.pass" />
+                    </p>
+                  <!-- <label for="password"> Password: </label>
+                  <input type="text" /> -->
                 </div>
                 <div>
-                  <button>Submit</button>
+                  <button class="button is-rounded login-button">Login</button>
+                </div>
+                <div>
+                  <p id="new-user">
+                    Don't have an account? <a class="has-text-primary" id="create-account" href="/signup"> Sign up here </a>
+                  </p>
                 </div>
             </form>
             <div v-html="dataFromBackend"></div>
@@ -38,6 +50,9 @@ export default {
       error: '',
       dataFromBackend: ''
     }
+  },
+  created: function () {
+    document.title = 'Login - 5 Love Languages'
   },
   methods: {
     simplesubmit () {
@@ -66,4 +81,28 @@ export default {
 </script>
 
 <style lang="scss">
+.form-group {
+  margin: 0 auto 2rem;
+  height: 50%;
+}
+
+.label {
+  color: white;
+}
+
+.button.login-button {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#new-user{
+  margin: 1.5rem auto;
+  text-align: right;
+  font-size: 13px;
+}
+
+#login-form{
+  width: 30%;
+  margin: 0 auto;
+}
 </style>

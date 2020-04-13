@@ -62,6 +62,9 @@ export default {
       visShown: false
     }
   },
+  created: function () {
+  document.title = 'Love Language Quiz';
+  },
   methods: {
     loveOptionClick: function (optionNum) {
       const ans = this.questions[this.index].answer[optionNum]
