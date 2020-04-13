@@ -1,0 +1,135 @@
+block content
+    h1=title
+    script(src = "https://d3js.org/d3.v5.min.js")
+
+    div(id="Message update: ")
+
+        form(class="form")
+            label(class="label row 1",
+                for="Message") Message:
+            input(type="text",id="message_box")
+        button(class="control row3" id="classify") Classify
+
+
+    div(id="result")
+
+
+
+    div(id='viz')
+    script(type="text/javascript").
+        var points = #{points}
+        var ppoints = #{ppoints}
+        console.log("data:",points)
+
+        var svg = d3.select("#viz")
+        .append("svg")
+        .attr("width",500)
+        .attr("height",500)
+
+        let data = [points,ppoints]
+        let features = ["time","gift","words","service","touch"];
+        //generate the data
+        console.log(data)
+
+        let radialScale = d3.scaleLinear()
+        .domain([0,10])
+        .range([0,200]);
+
+        let ticks = [2,4,6,8,10];
+
+        ticks.forEach(t =>
+        svg.append("circle")
+        .attr("cx", 200)
+        .attr("cy", 200)
+        .attr("fill", "none")
+        .attr("stroke", "gray")
+        .attr("r", radialScale(t)));
+
+        ticks.forEach(t =>
+        svg.append("text")
+        .attr("x", 205)
+        .attr("y", 200 - radialScale(t))
+        .text(t.toString()));
+
+
+        function angleToCoordinate(angle, value){
+        let x = Math.cos(angle) * radialScale(value);
+        let y = Math.sin(angle) * radialScale(value);
+        return {"x": 200 + x, "y": 200 - y};}
+
+        for (var i = 0; i < features.length; i++) {
+            let ft_name = features[i];
+            let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+            let line_coordinate = angleToCoordinate(angle, 10);
+            let label_coordinate = angleToCoordinate(angle, 10.5);
+
+            //draw axis line
+            svg.append("line")
+            .attr("x1", 200)
+            .attr("y1", 200)
+            .attr("x2", line_coordinate.x)
+            .attr("y2", line_coordinate.y)
+            .attr("stroke","black");
+
+            //draw axis label
+            svg.append("text")
+            .attr("x", label_coordinate.x)
+            .attr("y", label_coordinate.y)
+            .text(ft_name);
+        }
+
+        let line = d3.line()
+        .x(d => d.x)
+        .y(d => d.y);
+        let colors = ["navy", "red"];
+
+        function getPathCoordinates(data_point){
+        let coordinates = [];
+        for (var i = 0; i < features.length; i++){
+            let ft_name = features[i];
+            let angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+            coordinates.push(angleToCoordinate(angle, data_point[ft_name]));
+        }
+        return coordinates;}
+
+        for (var i = 0; i < data.length; i ++){
+        let d = data[i];
+        let color = colors[i];
+        let coordinates = getPathCoordinates(d);
+
+        //draw the path element
+        svg.append("path")
+        .datum(coordinates)
+        .attr("d",line)
+        .attr("stroke-width", 3)
+        .attr("stroke", color)
+        .attr("fill", color)
+        .attr("stroke-opacity", 1)
+        .attr("opacity", 0.5);}
+
+        d3.select("#viz").attr("align","center")
+
+
+        //Section to classify text
+        $("#classify").click(function() {
+            var sentence = $("#message_box").val();
+            console.log('Message:', sentence);
+            $.ajax({
+                url: "/classify",
+                type: "get", //send it through get method
+                data: {
+                     message: sentence
+                },
+                dataTyoe: "json",
+                success: function(response) {
+                    console.log(response)
+                    $("#result").html(`<h1> ${response} </h1>`);
+                    //Do Something
+                },
+                error: function(error) {
+                    //Do Something to handle error
+                    console.log(error.status)
+                }
+                });
+
+        });

@@ -25,7 +25,7 @@
                     <a class="button is-danger is-rounded" href="signup.html">Sign Up</a>
                 </div>
                 <div class="navbar-item">
-                    <a class="button is-danger is-rounded" href="login.html">Login</a><br>
+                    <a class="button is-danger is-rounded" href="/login">Login</a><br>
                 </div>
             </div>
             <div>

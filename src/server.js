@@ -1,7 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 app.use(express.static('./static/public'));
+app.use(cors());
 
 app.listen(3000, () => console.log('LoveL app on 3000'));
 let session = require('express-session');
@@ -10,7 +12,10 @@ let uuid = require('uuid/v1');
 let mongoose = require('mongoose');
 let bcrypt = require('bcrypt-nodejs');
 
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 //Configure Database:
 mongoose.Promise = global.Promise
@@ -24,12 +29,6 @@ mongoose.connect('mongodb://localhost:9000/LoveL', {
     });
 //, {useMongoClient: true});
 mongoose.set('useCreateIndex', true);
-
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-
-
 
 
 app.get('/', (req, res) => {
@@ -69,7 +68,7 @@ let dummy_user = [{
 
 ];
 
-//Create database schemas: 
+//Create database schemas:
 let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
@@ -133,6 +132,7 @@ app.get('/login', function(request, response) {
     });
 });
 
+// TODO: Return JASON instead of a pug render HTML
 app.post("/processLogin", function(request, response) {
     console.log("Prcoess Login called");
     username = request.body.username;
@@ -151,19 +151,26 @@ app.post("/processLogin", function(request, response) {
         if (password == results[0].password) {
             request.session.username = username;
             console.log("Successfully Logged In User");
-            response.render("main_page", {
-                username: val.username,
-                title: "Welcome " + val.name + " and " + val.partner.name,
-                points: val.points,
-                ppoints: val.partner.points
-            })
+            response.sendFile(response.render("simpleSVG", {
+                  username: val.username,
+                  title: "Welcome " + val.name + " and " + val.partner.name,
+                  points: val.points,
+                  ppoints: val.partner.points
+            }));
+            // response.render("main_page", {
+            //     username: val.username,
+            //     title: "Welcome " + val.name + " and " + val.partner.name,
+            //     points: val.points,
+            //     ppoints: val.partner.points
+            // })
         } else {
             console.log("Password Mismatch");
-            response.render('login', {
-                errorMessage: "Wrong Password",
-            });
+            response.send({ err: 'Error' });
+            response.send({ err: 'Error' });
+            // response.render('login', {
+            //     errorMessage: "Wrong Password",
+            // });
         }
-
     }).catch(function(error) {
         // error logging in - no such user
         console.log('login: catch');
@@ -171,8 +178,6 @@ app.post("/processLogin", function(request, response) {
             errorMessage: 'Login Incorrect'
         });
     });
-
-
 })
 
 app.get('/signup', function(request, response) {
@@ -210,7 +215,7 @@ app.post("/processSignUp", function(request, response) {
 
 });
 
-// API for text classification: 
+// API for text classification:
 const tf = require('@tensorflow/tfjs-node');
 var fs = require('fs');
 
@@ -221,7 +226,7 @@ app.get("/classify", function(request, res) {
 
     async function classify(message) {
         /*
-        Classes: 
+        Classes:
             1- Word of Affirmation
             2- Acts of Service
             3- Gifts
