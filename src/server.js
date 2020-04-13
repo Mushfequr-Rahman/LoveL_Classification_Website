@@ -138,9 +138,6 @@ app.post("/processLogin", function(request, response) {
     username = request.body.username;
     password = request.body.password;
     console.log("Looking for username: ", username);
-
-
-
     User.find({ username: username }).then(function(results) {
         console.log(results)
         if (results.length != 1) {
@@ -165,7 +162,9 @@ app.post("/processLogin", function(request, response) {
                 pgift: val.partner.points.gift,
                 pservice: val.partner.points.service,
                 pwords: val.partner.points.words,
-                ptouch: val.partner.points.touch
+                ptouch: val.partner.points.touch,
+                points: val.points,
+                ppoints: val.partner.points
             })
         } else {
             console.log("Password Mismatch");
@@ -184,3 +183,38 @@ app.post("/processLogin", function(request, response) {
 
 
 })
+
+app.get('/signup', function(request, response) {
+    response.render('signup', {
+        title: 'Signup Page',
+        errorMessage: ''
+    });
+});
+
+
+//Create Sign up functions:
+app.post("/processSignUp", function(request, response) {
+    username = request.body.username;
+    email = request.body.email;
+    password = request.body.pwd;
+    console.log("Registering new User", username)
+    newUser = new User({
+        username: username,
+        email: email,
+        password: password
+    })
+
+    newUser.save(function(error) {
+        if (error) {
+            response.render('signup', {
+                errorMessage: "Could Not register"
+            })
+
+        } else {
+            response.render('main_page', {
+                title: "Welcome"
+            })
+        }
+    })
+
+});
