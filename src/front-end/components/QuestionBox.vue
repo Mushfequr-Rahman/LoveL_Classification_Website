@@ -1,12 +1,27 @@
 <template>
   <div>
     <div class="columns is-multiline is-centered is-mobile" id="sectioncontainer">
+      <div class="column is-half">
+        <a class="button is-rounded is-pink" v-show="visShown" href="/">GO BACK HOME</a>
+      </div>
+    </div>
+    <div class="columns is-multiline is-centered is-mobile" id="sectioncontainer">
       <div class="question-box column is-half">
-        <article class="message is-pink">
-          <div class="message-header">
+        <!-- <div class="columns is-multiline is-centered is-mobile" id="sectioncontainer"> -->
+              <div v-show="vis" class="column is-half" style="margin: 0 auto;">
+                <div id="vis" v-show="visShown"></div>
+                <div id="resultButton">
+                  <p> Click the button below to see your result!</p>
+                  <br>
+                  <button class="button is-rounded is-pink" v-on:click="showResult">SEE RESULT</button>
+                </div>
+              </div>
+            <!-- </div> -->
+        <article class="message is-pink" v-show="!vis">
+          <div class="message-header" v-show="!vis">
             <p>{{ this.questions[this.index].question }}</p>
           </div>
-          <div class="message-body">
+          <div class="message-body" v-show="!vis">
             <div class="board-item">
               <div @click="loveOptionClick(0)" v-if="QuestionLen" class="board-item-content">
                 <span>{{ this.questions[this.index].op1 }}</span>
@@ -19,16 +34,6 @@
             </div>
           </div>
         </article>
-      </div>
-    </div>
-    <div class="columns is-multiline is-centered is-mobile" id="sectioncontainer">
-      <div class="column is-half">
-        <button class="button is-rounded is-pink" v-show="vis" v-on:click="showResult">SEE FINAL RESULT</button>
-      </div>
-    </div>
-    <div class="columns is-multiline is-centered is-mobile" id="sectioncontainer">
-      <div class="column is-half">
-        <button class="button is-rounded is-pink" v-show="visShown" href="/">GO BACK HOME</button>
       </div>
     </div>
   </div>
@@ -78,10 +83,11 @@ export default {
       }
     },
     showResult: function (){
-      this.vis = false
+      this.vis = true
       this.visShown = true
-      document.getElementsByClassName('message-header')[0].innerHTML = "<p>Result</p>";
-      document.getElementsByClassName('message-body')[0].innerHTML = "";
+      document.getElementById('resultButton').style.display = "none";
+      // document.getElementsByClassName('message-header')[0].innerHTML = "<p>Result</p>";
+      // document.getElementsByClassName('message-body')[0].innerHTML = "";
 
 //Refered from: "https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"
 //Also from: http://bl.ocks.org/tpreusse/2bc99d74a461b8c0acb1
@@ -418,7 +424,7 @@ var RadarChart = {
 
     var chart = RadarChart.chart();
     var cfg = chart.config(); // retrieve default config
-    var svg = d3.select('.message-body').append('svg')
+    var svg = d3.select('#vis').append('svg')
         .attr('width', cfg.w + cfg.w + 50)
         .attr('height', cfg.h + cfg.h / 4);
     svg.append('g').classed('single', 1).datum(radarChart()).call(chart);
@@ -441,6 +447,22 @@ var RadarChart = {
 span {
   display: block;
   text-align: left;
+}
+#vis{
+  /* position: sticky;
+  left: 40%; */
+  margin: 0 -52%;
+  width: 700px;
+  height: 500px;
+  background-color: white;
+  padding-left: 140px;
+  padding-top: 70px;
+}
+.single.radar-chart{
+  /* left:30%;
+  margin: 0 auto; */
+  /* text-align: center; */
+  left: 10%;
 }
 .board-item-content {
   padding: 20px;

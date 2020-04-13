@@ -4,33 +4,54 @@
             CREATE AN ACCOUNT
         </div>
         <div class="hero-body">
-            <form @submit.prevent="signup()" id="login-form">
+
+            <div>
+            <div class="columns is-multiline is-centered is-mobile" id="sectioncontainer">
+              <div class="question-box column is-half">
+                <article class="message is-pink">
+                  <div class="message-header">
+                    Sign up
+                  </div>
+                  <div class="message-body">
+                    <div class="board-item">
+                      <form @submit.prevent="signup()" id="login-form">
                 <div class="form-group">
-                  <label class="label has-text-grey-lighter">Username</label>
+                  <label class="label">Username</label>
                   <div class="control">
-                    <input class="input is-success" type="text" placeholder="Enter a new username" v-model="loginInfo.user">
+                    <input class="input is-rounded" type="text" placeholder="Enter a new username" v-model="loginInfo.user">
                     <!-- <input type="text" v-model="loginInfo.user"/> -->
                   </div>
                 </div>
                 <div class="form-group">
-                    <label class="label has-text-grey-lighter">Password</label>
+                    <label class="label">Password</label>
                     <p class="control">
-                      <input class="input" type="password" placeholder="Password">
+                      <input class="input is-rounded" type="password" placeholder="Password">
                     </p>
                   <!-- <label for="password"> Password: </label>
                   <input type="text" v-model="loginInfo.pass"/> -->
                 </div>
                 <div class="form-group">
-                    <label class="label has-text-grey-lighter">Confirm password</label>
+                    <label class="label">Confirm password</label>
                     <p class="control">
-                      <input class="input" type="password" placeholder="Confirm your password">
+                      <input class="input is-rounded" type="password" placeholder="Confirm your password">
                     </p>
                 </div>
                 <div>
-                  <button class="button is-rounded signup-button">Sign up</button>
+                  <button class="button is-rounded is-danger signup-button">Sign up</button>
+                </div>
+                <div>
+                  <p id="account-exist">
+                    Already have an account? <a class="has-text-primary" id="create-account" href="/login"> Login here </a>
+                  </p>
                 </div>
             </form>
             <div v-html="dataFromBackend"></div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
         </div>
     </section>
 </template>
@@ -78,7 +99,7 @@ export default {
   margin: 0 auto 2rem;
 }
 
-#new-user{
+#account-exist{
   margin: 1.5rem auto;
   text-align: right;
   font-size: 13px;

@@ -4,32 +4,47 @@
             PLEASE LOGIN TO YOUR ACCOUNT
         </div>
         <div class="hero-body">
-            <form @submit.prevent="submit()" id="login-form">
-                <div class="form-group">
-                  <label class="label has-text-grey-lighter">Username</label>
-                  <div class="control">
-                    <input class="input is-success" type="text" placeholder="Enter your username" v-model="loginInfo.user">
-                    <!-- <input type="text" v-model="loginInfo.user"/> -->
+          <div>
+            <div class="columns is-multiline is-centered is-mobile" id="sectioncontainer">
+              <div class="question-box column is-half">
+                <article class="message is-pink">
+                  <div class="message-header">
+                    Login
                   </div>
-                </div>
-                <div class="form-group">
-                    <label class="label has-text-grey-lighter">Password</label>
-                    <p class="control">
-                      <input class="input" type="password" placeholder="Password" v-model="loginInfo.pass" />
-                    </p>
-                  <!-- <label for="password"> Password: </label>
-                  <input type="text" /> -->
-                </div>
-                <div>
-                  <button class="button is-rounded login-button">Login</button>
-                </div>
-                <div>
-                  <p id="new-user">
-                    Don't have an account? <a class="has-text-primary" id="create-account" href="/signup"> Sign up here </a>
-                  </p>
-                </div>
-            </form>
-            <div v-html="dataFromBackend"></div>
+                  <div class="message-body">
+                    <div class="board-item">
+                      <form @submit.prevent="submit()" id="login-form">
+                        <div class="form-group">
+                          <label class="label">Username</label>
+                          <div class="control">
+                            <input class="input is-rounded" type="text" placeholder="Enter your username" v-model="loginInfo.user">
+                            <!-- <input type="text" v-model="loginInfo.user"/> -->
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">Password</label>
+                            <p class="control">
+                              <input class="input is-rounded" type="password" placeholder="Password" v-model="loginInfo.pass" />
+                            </p>
+                          <!-- <label for="password"> Password: </label>
+                          <input type="text" /> -->
+                        </div>
+                        <div>
+                          <button class="button is-rounded is-danger login-button">Login</button>
+                        </div>
+                        <div>
+                          <p id="new-user">
+                            Don't have an account? <a class="has-text-primary" id="create-account" href="/signup"> Sign up here </a>
+                          </p>
+                        </div>
+                      </form>
+                      <div v-html="dataFromBackend"></div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
         </div>
     </section>
 </template>
@@ -102,7 +117,7 @@ export default {
 }
 
 #login-form{
-  width: 30%;
-  margin: 0 auto;
+  width: 100%;
+  margin-right: 0;
 }
 </style>
