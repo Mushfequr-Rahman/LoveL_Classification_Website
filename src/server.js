@@ -151,12 +151,15 @@ app.post("/processLogin", function(request, response) {
         if (password == results[0].password) {
             request.session.username = username;
             console.log("Successfully Logged In User");
+            response.json(val);
+            /*
             response.sendFile(response.render("simpleSVG", {
                   username: val.username,
                   title: "Welcome " + val.name + " and " + val.partner.name,
                   points: val.points,
                   ppoints: val.partner.points
             }));
+            */
             // response.render("main_page", {
             //     username: val.username,
             //     title: "Welcome " + val.name + " and " + val.partner.name,
@@ -193,11 +196,17 @@ app.post("/processSignUp", function(request, response) {
     username = request.body.username;
     email = request.body.email;
     password = request.body.pwd;
+    name = request.body.name;
+    pname = request.body.name;
     console.log("Registering new User", username)
     newUser = new User({
         username: username,
         email: email,
-        password: password
+        name: name,
+        password: password,
+        partner: {
+            name: name
+        }
     })
 
     newUser.save(function(error) {
@@ -238,7 +247,6 @@ app.get("/classify", function(request, res) {
         const handler = tf.io.fileSystem('weights/model.json');
         var model = await tf.loadLayersModel(handler).catch(error => console.error(error));
         console.log("Inside classification");
-        const temp = tf.zeros([1, 50]);
 
         let text = message.split(" ");
 
