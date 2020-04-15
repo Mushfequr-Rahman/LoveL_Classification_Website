@@ -110,7 +110,7 @@ block content
         .attr("opacity", 0.5);}
 
         d3.select("#viz").attr("align","center")
-
+        var current_username = "#{username}"
 
         //Section to classify text
         $("#classify").click(function() {
@@ -120,7 +120,9 @@ block content
                 url: "/classify",
                 type: "get", //send it through get method
                 data: { 
-                     message: sentence  
+                     message: sentence, 
+                     username: current_username,
+                     isPartner: false   
                 },
                 dataTyoe: "json",
                 success: function(response) {

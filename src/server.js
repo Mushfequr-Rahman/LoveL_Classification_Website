@@ -83,8 +83,12 @@ let userSchema = new Schema({
     name: String,
     messages: [{
         id: Number,
-        time: String,
+        time: { type: String, default: Date.now },
         content: String,
+        class: {
+            type: String,
+                default: "service"
+        },
     }],
     points: {
         touch: Number,
@@ -97,8 +101,13 @@ let userSchema = new Schema({
         id: Number,
         name: String,
         messages: [{
+            id: Number,
             time: { type: Date, default: Date.now },
             content: String,
+            class: {
+                type: String,
+                    default: "service"
+            },
         }],
         points: {
             touch: Number,
@@ -132,8 +141,15 @@ app.get('/login', function(request, response) {
     });
 });
 
-// TODO: Return JASON instead of a pug render HTML
+
 app.post("/processLogin", function(request, response) {
+    /*
+     * @desc Function to process Log in and check if password matched.
+     * @param string username - username of the user trying to login 
+     * @param string password - password of the user trying to login 
+     * @return JSON object - the profile of the user.  
+     */
+
     console.log("Prcoess Login called");
     username = request.body.username;
     password = request.body.password;
@@ -151,7 +167,10 @@ app.post("/processLogin", function(request, response) {
         if (password == results[0].password) {
             request.session.username = username;
             console.log("Successfully Logged In User");
+            /*
             response.json(val);
+            Uncomment THis before pushing
+            */
             /*
             response.sendFile(response.render("simpleSVG", {
                   username: val.username,
@@ -160,19 +179,17 @@ app.post("/processLogin", function(request, response) {
                   ppoints: val.partner.points
             }));
             */
-            // response.render("main_page", {
-            //     username: val.username,
-            //     title: "Welcome " + val.name + " and " + val.partner.name,
-            //     points: val.points,
-            //     ppoints: val.partner.points
-            // })
+            response.render("main_page", {
+                username: val.username,
+                title: "Welcome " + val.name + " and " + val.partner.name,
+                points: val.points,
+                ppoints: val.partner.points
+            })
         } else {
             console.log("Password Mismatch");
             response.send({ err: 'Error' });
-            response.send({ err: 'Error' });
-            // response.render('login', {
-            //     errorMessage: "Wrong Password",
-            // });
+
+
         }
     }).catch(function(error) {
         // error logging in - no such user
@@ -184,6 +201,10 @@ app.post("/processLogin", function(request, response) {
 })
 
 app.get('/signup', function(request, response) {
+    /*
+     * @desc Function to render a signup page 
+     * @return a dynamic rendering of signup.pug
+     */
     response.render('signup', {
         title: 'Signup Page',
         errorMessage: ''
@@ -191,8 +212,16 @@ app.get('/signup', function(request, response) {
 });
 
 
-//Create Sign up functions:
 app.post("/processSignUp", function(request, response) {
+    /* 
+     * @desc Function to create a new user based to the bd from the form 
+     * @param string username - username to be added 
+     * @param string email - email of the user 
+     * @param string password - password of the user
+     * @param string name - name of the user 
+     * @param string pname - name of the partner 
+     * @return bool -if the user has been added properly. 
+     */
     username = request.body.username;
     email = request.body.email;
     password = request.body.pwd;
@@ -229,8 +258,19 @@ const tf = require('@tensorflow/tfjs-node');
 var fs = require('fs');
 
 app.get("/classify", function(request, res) {
+    /*
+     * @desc Function to classify daily message and send them to the database:
+     * @param string message - message to classify 
+     * @param string username - user who postesd the message
+     * @param bool isPartner - Check to see if the patner is posting the message
+     * @return string class - class which the message belongs to. 
+     */
 
-    message = request.query.message;
+
+
+    let message = request.query.message;
+    let username = request.query.username;
+    let isPartner = request.query.isPartner;
     console.log("Recieved message to classify: ", message);
 
     async function classify(message) {
@@ -246,7 +286,7 @@ app.get("/classify", function(request, res) {
         var vocab_json = JSON.parse(fs.readFileSync('weights/t_config.json', 'utf8'));
         const handler = tf.io.fileSystem('weights/model.json');
         var model = await tf.loadLayersModel(handler).catch(error => console.error(error));
-        console.log("Inside classification");
+        // console.log("Inside classification");
 
         let text = message.split(" ");
 
@@ -268,24 +308,24 @@ app.get("/classify", function(request, res) {
 
         var seq = textsToSequences(text, vocab_json)
         seq = [].concat.apply([], seq);
-        console.log(seq)
+        //console.log(seq)
         var padded = padArray(seq, 50, 0);
 
         var tensor = tf.expandDims(tf.tensor1d(padded))
-        tensor.print();
+            //tensor.print();
         var pred = model.predict(tensor);
-        pred.print()
+        //pred.print()
         let x = pred.dataSync()
-        console.log(x)
+            //console.log(x)
         let res = x.indexOf(Math.max.apply(Math, x))
-        console.log(res);
+            //console.log(res);
 
         var result = "None";
         if (res == 0) result = "word";
         else if (res == 1) result = "service";
         else if (res == 2) result = "gift";
         else if (res == 3) result = "time";
-        else if (res == 4) result = "service";
+        else if (res == 4) result = "touch";
 
 
         return result;
@@ -293,6 +333,68 @@ app.get("/classify", function(request, res) {
 
     }
 
-    classify(message).then(result => res.json(result))
+    classify(message).then(function(msg_class) {
+        User.find({ username: username }).then(function(result) {
+            var user = result[0]
+            console.log("isPartner:", isPartner)
+            var new_message = {
+                content: message,
+                time: new Date(),
+                class: msg_class
+
+            }
+            if (isPartner == true) user.messages.push(new_message)
+            else {
+                user.partner.messages.push(new_message)
+            }
+
+            //TODO: Calculate the new scores:
+            classes = ["service", "time", "gift", "touch", "words"]
+            if (isPartner == true) {
+                var points = user.points;
+
+                var length = user.messages.length;
+                for (i in classes) {
+                    var s_len = user.messages.filter(c => c.class === classes[i]).length;
+                    s_len = Math.floor((s_len / length) * 10)
+                    points[classes[i]] = s_len
+                }
+                user.points = points;
+
+
+            } else {
+                var points = user.partner.points
+                var length = user.partner.messages.length;
+                for (i in classes) {
+
+                    var s_len = user.partner.messages.filter(c => c.class === classes[i]).length;
+                    s_len = Math.floor((s_len / length) * 10)
+                    console.log(s_len)
+                    console.log(points[classes[i]])
+                    points[classes[i]] = s_len
+                }
+                user.partner.points = points;
+
+
+
+            }
+
+            //console.log(user.messages)
+            console.log("Partner message", user.partner.points)
+            user.save(function(error) {
+                if (error) {
+                    console.log(error);
+                    res.status(404)
+
+                } else {
+                    res.json(msg_class);
+                }
+
+            })
+        })
+
+
+
+    });
 
 })
