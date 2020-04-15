@@ -136,7 +136,7 @@
 
  app.get('/login', function(request, response) {
      /*
-      * @desc Function to return a login page 
+      * @desc Function to return a login page
       * @return Returns a pug rendered html page
       */
 
@@ -150,9 +150,9 @@
  app.post("/processLogin", function(request, response) {
      /*
       * @desc Function to process Log in and check if password matched.
-      * @param string username - username of the user trying to login 
-      * @param string password - password of the user trying to login 
-      * @return JSON object - the profile of the user.  
+      * @param string username - username of the user trying to login
+      * @param string password - password of the user trying to login
+      * @return JSON object - the profile of the user.
       */
 
      console.log("Prcoess Login called");
@@ -172,9 +172,8 @@
          if (password == results[0].password) {
              request.session.username = username;
              console.log("Successfully Logged In User");
-             console.log(val)
-                 //response.json(val);
-
+             console.log(val);
+             response.json(val);
 
              /*
              response.sendFile(response.render("simpleSVG", {
@@ -184,12 +183,12 @@
                    ppoints: val.partner.points
              }));
              */
-             response.render("main_page", {
-                 username: val.username,
-                 title: "Welcome " + val.name + " and " + val.partner.name,
-                 points: val.points,
-                 ppoints: val.partner.points
-             })
+         //     response.render("main_page", {
+         //         username: val.username,
+         //         title: "Welcome " + val.name + " and " + val.partner.name,
+         //         points: val.points,
+         //         ppoints: val.partner.points
+         //     })
          } else {
              console.log("Password Mismatch");
              response.send({ err: 'Error' });
@@ -207,7 +206,7 @@
 
  app.get('/signup', function(request, response) {
      /*
-      * @desc Function to render a signup page 
+      * @desc Function to render a signup page
       * @return a dynamic rendering of signup.pug
       */
      response.render('signup', {
@@ -218,14 +217,14 @@
 
 
  app.post("/processSignUp", function(request, response) {
-     /* 
-      * @desc Function to create a new user based to the bd from the form 
-      * @param string username - username to be added 
-      * @param string email - email of the user 
+     /*
+      * @desc Function to create a new user based to the bd from the form
+      * @param string username - username to be added
+      * @param string email - email of the user
       * @param string password - password of the user
-      * @param string name - name of the user 
-      * @param string pname - name of the partner 
-      * @return bool -if the user has been added properly. 
+      * @param string name - name of the user
+      * @param string pname - name of the partner
+      * @return bool -if the user has been added properly.
       */
      username = request.body.username;
      email = request.body.email;
@@ -262,10 +261,10 @@
  app.get("/classify", function(request, res) {
      /*
       * @desc Function to classify daily message and send them to the database:
-      * @param string message - message to classify 
+      * @param string message - message to classify
       * @param string username - user who postesd the message
       * @param bool isPartner - Check to see if the patner is posting the message
-      * @return string class - class which the message belongs to. 
+      * @return string class - class which the message belongs to.
       */
 
 
@@ -399,12 +398,12 @@
 
 
  app.get("/history", function(request, res) {
-     /* 
-      * @desc Function to get the history of messages 
+     /*
+      * @desc Function to get the history of messages
       * @param  string username - username of the user we are searching for
       * @param bool isPartner - indicate wheter it is the partner or the main user
-      * @param string daterange - indicate which range of dates the messages are from 
-      * @return list<messages> - List of messages that fall with in the range.   
+      * @param string daterange - indicate which range of dates the messages are from
+      * @return list<messages> - List of messages that fall with in the range.
       */
 
      let username = request.query.username;

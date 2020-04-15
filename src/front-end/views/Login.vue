@@ -31,6 +31,7 @@
                         </div>
                         <div>
                           <button class="button is-rounded is-danger login-button">Login</button>
+                          <div>{{ loginStatus }}</div>
                         </div>
                         <div>
                           <p id="new-user">
@@ -38,7 +39,7 @@
                           </p>
                         </div>
                       </form>
-                      <div v-html="dataFromBackend"></div>
+                      <!-- <--div v-html="dataFromBackend"></div> -->
                     </div>
                   </div>
                 </article>
@@ -63,7 +64,8 @@ export default {
         pass: ''
       },
       error: '',
-      dataFromBackend: ''
+      dataFromBackend: '',
+      loginStatus: ''
     }
   },
   created: function () {
@@ -83,11 +85,14 @@ export default {
         .then((getResponse) => {
           console.log('GET Response')
           this.dataFromBackend = getResponse.data
+          this.loginStatus = 'Login Success!'
           console.log(this.dataFromBackend)
+          this.$router.push({ name: 'DayLove', params: { user_data: this.dataFromBackend } })
         })
         .catch(function (error) {
-          console.log('Error while fetching market updates')
+          console.log('Error while fetching login updates from server side')
           console.log(error)
+          this.loginStatus = 'Login Not Successful'
           this.error = error
         })
     }
