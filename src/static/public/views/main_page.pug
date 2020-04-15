@@ -117,12 +117,13 @@ block content
             var sentence = $("#message_box").val(); 
             console.log('Message:', sentence); 
             $.ajax({
-                url: "/classify",
+                url: "/history",
                 type: "get", //send it through get method
                 data: { 
                      message: sentence, 
                      username: current_username,
-                     isPartner: false   
+                     isPartner: false,
+                     daterange: "week"   
                 },
                 dataTyoe: "json",
                 success: function(response) {

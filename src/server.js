@@ -160,7 +160,7 @@
      password = request.body.password;
      console.log("Looking for username: ", username);
      User.find({ username: username }).then(function(results) {
-         console.log(results)
+
          if (results.length != 1) {
              console.log("No user found");
              response.render('login', {
@@ -168,12 +168,12 @@
              });
          }
          let val = results[0];
-         console.log("Login Password: ", results[0].password)
+
          if (password == results[0].password) {
              request.session.username = username;
              console.log("Successfully Logged In User");
-
-             response.json(val);
+             console.log(val)
+                 //response.json(val);
 
 
              /*
@@ -203,7 +203,7 @@
              errorMessage: 'Login Incorrect'
          });
      });
- })
+ });
 
  app.get('/signup', function(request, response) {
      /*
@@ -288,7 +288,7 @@
          var vocab_json = JSON.parse(fs.readFileSync('weights/t_config.json', 'utf8'));
          const handler = tf.io.fileSystem('weights/model.json');
          var model = await tf.loadLayersModel(handler).catch(error => console.error(error));
-         // console.log("Inside classification");
+         console.log("Inside classification");
 
          let text = message.split(" ");
 
@@ -310,17 +310,13 @@
 
          var seq = textsToSequences(text, vocab_json)
          seq = [].concat.apply([], seq);
-         //console.log(seq)
          var padded = padArray(seq, 50, 0);
 
          var tensor = tf.expandDims(tf.tensor1d(padded))
-             //tensor.print();
          var pred = model.predict(tensor);
-         //pred.print()
          let x = pred.dataSync()
-             //console.log(x)
          let res = x.indexOf(Math.max.apply(Math, x))
-             //console.log(res);
+
 
          var result = "None";
          if (res == 0) result = "words";
@@ -399,4 +395,41 @@
 
      });
 
- })
+ });
+
+
+ app.get("/history", function(request, res) {
+     /* 
+      * @desc Function to get the history of messages 
+      * @param  string username - username of the user we are searching for
+      * @param bool isPartner - indicate wheter it is the partner or the main user
+      * @param string daterange - indicate which range of dates the messages are from 
+      * @return list<messages> - List of messages that fall with in the range.   
+      */
+
+     let username = request.query.username;
+     let isPartner = request.query.isPartner;
+     let daterange = request.query.daterange;
+     console.log("daterange: ", daterange);
+     var current_date = new Date();
+     var pastdate;
+     if (daterange == "week") pastdate = current_date.getDate() - 7;
+     else if (daterange == "month") pastdate = current_date.getDate() - 30;
+     else pastdate = current_date.getDate() - 200;
+     User.find({ username: username }).then(function(result) {
+         user = result[0]
+         var messages;
+         if (isPartner == true) messages = user.messages;
+         else messages = user.partner.messages;
+         console.log(messages)
+         messages = messages.filter(function(d) {
+             return (pastdate <= d.date <= current_date);
+         })
+         console.log(messages)
+         res.json(messages);
+     });
+
+
+
+
+ });
