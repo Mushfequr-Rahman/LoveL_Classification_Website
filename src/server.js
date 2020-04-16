@@ -11,6 +11,9 @@
  let uuid = require('uuid/v1');
  let mongoose = require('mongoose');
  let bcrypt = require('bcrypt-nodejs');
+ let http = require('http').createServer(app);
+ let io = require('socket.io')(http);
+
 
  app.use(bodyParser.json());
  app.use(bodyParser.urlencoded({
@@ -175,7 +178,53 @@
              request.session.username = username;
              console.log("Successfully Logged In User");
              console.log(val);
-             //response.json(val);
+             response.json(val);
+
+         } else {
+             console.log("Password Mismatch");
+             response.send({ err: 'Error' });
+
+
+         }
+     }).catch(function(error) {
+         // error logging in - no such user
+         console.log('login: catch');
+         response.render('login', {
+             errorMessage: 'Login Incorrect'
+         });
+     });
+ });
+
+
+
+
+ app.post("/processLoginTest", function(request, response) {
+     /*
+      * @desc Function to process Log in and check if password matched.
+      * @param string username - username of the user trying to login
+      * @param string password - password of the user trying to login
+      * @return JSON object - the profile of the user.
+      */
+
+     console.log("Prcoess Login called");
+     username = request.body.username;
+     password = request.body.password;
+     console.log("Looking for username: ", username);
+     console.log("Password is", password)
+     User.find({ username: username }).then(function(results) {
+
+         if (results.length != 1) {
+             console.log("No user found");
+             response.render('login', {
+                 errorMessage: "No Username Like that"
+             });
+         }
+         let val = results[0];
+
+         if (password == results[0].password) {
+             request.session.username = username;
+             console.log("Successfully Logged In User");
+             console.log(val);
 
 
              response.render("main_page", {
@@ -198,6 +247,9 @@
          });
      });
  });
+
+
+
 
  app.get('/signup', function(request, response) {
      /*
@@ -236,8 +288,8 @@
              name: name
          }
      })
+
      newUser.save(function(error) {
-         console.log("Saving user")
          if (error) {
              response.send(400, { "result": false })
 
@@ -320,14 +372,16 @@
          else if (res == 4) result = "touch";
 
 
-         return { result, res };
+         return [result, res];
 
 
      }
 
 
-     classify(message).then(function({ msg_class, category }) {
+     classify(message).then(function([msg_class, category]) {
          User.find({ username: username }).then(function(result) {
+             console.log("category: ", category)
+             console.log("class", msg_class)
              var user = result[0]
              console.log("isPartner:", isPartner)
              var new_message = {
@@ -387,46 +441,13 @@
  });
 
 
-<<<<<<< Updated upstream
-app.get("/history", function(request, res) {
-   /*
-    * @desc Function to get the history of messages
-    * @param  string username - username of the user we are searching for
-    * @param bool isPartner - indicate wheter it is the partner or the main user
-    * @param string daterange - indicate which range of dates the messages are from
-    * @return list<messages> - List of messages that fall with in the range.
-    */
-
-   let username = request.query.username;
-   let isPartner = request.query.isPartner;
-   let daterange = request.query.daterange;
-   console.log("daterange: ", daterange);
-   var current_date = new Date();
-   var pastdate;
-   if (daterange == "week") pastdate = current_date.getDate() - 7;
-   else if (daterange == "month") pastdate = current_date.getDate() - 30;
-   else pastdate = current_date.getDate() - 200;
-   User.find({ username: username }).then(function(result) {
-       user = result[0]
-       var messages;
-       if (isPartner == true) messages = user.messages;
-       else messages = user.partner.messages;
-       console.log(messages)
-       messages = messages.filter(function(d) {
-           return (pastdate <= d.date <= current_date);
-       })
-       console.log(messages)
-       res.json(messages);
-   });
-});
-=======
  app.get("/history", function(request, res) {
-     /* 
-      * @desc Function to get the history of messages 
+     /*
+      * @desc Function to get the history of messages
       * @param  string username - username of the user we are searching for
       * @param bool isPartner - indicate wheter it is the partner or the main user
-      * @param string daterange - indicate which range of dates the messages are from 
-      * @return list<messages> - List of messages that fall with in the range.   
+      * @param string daterange - indicate which range of dates the messages are from
+      * @return list<messages> - List of messages that fall with in the range.
       */
 
      let username = request.query.username;
@@ -450,11 +471,31 @@ app.get("/history", function(request, res) {
          console.log(messages)
          res.json(messages);
      });
+ });
 
 
+ let messageHitory = [];
+ io.on('connection', function(socket) {
+     console.log("User Connected");
+     for (let i = 0; i < messageHitory.length; i++) {
+         socket.emit('brodcast message', messageHitory[i]);
+     }
 
+     socket.on("disconnect", function() {
+         console.log("User disconnected");
+     })
 
+     socket.on('send message', function(data) {
+         console.log(data.username + ': ' + data.message);
+         messageHistory.push(data);
 
+         io.emit('broadcast message', data);
+     })
 
  });
->>>>>>> Stashed changes
+
+ app.get("/contact", function(request, response) {
+     console.log("Contacting Customer Viewer");
+     response.sendFile("static/public/client.html", { root: __dirname })
+
+ });
