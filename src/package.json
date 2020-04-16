@@ -2,7 +2,7 @@
     "name": "LoveL",
     "version": "1.0.0",
     "scripts": {
-        "serve": "vue-cli-service serve front-end/main.js --port 9030",
+        "serve": "vue-cli-service serve front-end/main.js --port 9050",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "database": "mongod --port 9000",

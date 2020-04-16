@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     chooseUser: function (username) {
-      this.$router.push({ name: 'DailyLove', params: { user_name: username } })
+      this.$router.push({ name: 'DayLove', params: { user_name: username } })
     }
   },
   mounted () {
