@@ -9,9 +9,9 @@
               <div class="info-header">
               </div>
               <div class="info-content">
-                  Read the most recent 3 messages {{ partner_name }} write to you!
+                  Read the most recent 3 messages {{ partner_name }} write to you.
                   <br>
-                  It seems {{ partner_name }} values your {{ max_category }} the most recently!
+                  It seems {{ partner_name }} values your <span :style="{'color': '#f5cb42', 'display': 'inline'}">{{ maxCategory }}</span> the most!
               </div>
             </div>
             <div class="column is-half">
@@ -23,7 +23,7 @@
               />
             </div>
             <div class="column is-half">
-              <button class="big-button button is-primary is-inverted is-outlined is-large">I am  {{ user_name }}</button>
+              <button class="big-button button is-primary is-inverted is-outlined is-large">Write Something to {{ partner_name }}</button>
             </div>
           </div>
         </div>
@@ -45,7 +45,6 @@ export default {
     return {
       local_messages: '',
       partner_name: String,
-      max_category: '',
       score: {
         1: 0,
         2: 0,
@@ -76,6 +75,25 @@ export default {
       }
     }
     // ---------------------------------------------------------------------------------------
+  },
+  computed: {
+    maxCategory: function () {
+      var maxCat = 1
+      for (var cat in this.score) {
+        maxCat = (this.score[cat] > this.score[maxCat]) ? cat : maxCat
+      }
+      if (maxCat === '1') {
+        return 'Word of Affirmation'
+      } else if (maxCat === '2') {
+        return 'Act of Service'
+      } else if (maxCat === '3') {
+        return 'Receiving Gift'
+      } else if (maxCat === '4') {
+        return 'Quality Time'
+      } else {
+        return 'Physical Touch'
+      }
+    }
   }
 }
 </script>
