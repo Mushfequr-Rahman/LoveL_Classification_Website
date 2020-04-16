@@ -117,12 +117,12 @@ export default {
 
 #new-user{
   margin: 1.5rem auto;
-  text-align: right;
+  text-align: center;
   font-size: 13px;
 }
 
 #login-form{
-  width: 100%;
-  margin-right: 0;
+  width: 45%;
+  margin: 0 auto;
 }
 </style>

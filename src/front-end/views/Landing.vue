@@ -44,8 +44,8 @@ export default {
       localStorage.userlog = parsed
       this.local_user_data = this.user_data
     } else if (!this.user_data && localStorage.userlog) {
-        try {
-          this.local_user_data = JSON.parse(localStorage.getItem('userlog'))
+      try {
+        this.local_user_data = JSON.parse(localStorage.getItem('userlog'))
       } catch (e) {
         localStorage.removeItem('userlog')
       }
