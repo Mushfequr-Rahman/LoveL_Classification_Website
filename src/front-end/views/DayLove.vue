@@ -60,17 +60,17 @@ export default {
     //   The first copy of 'localStorage.userlog' was setup in 'Ladning.vue'
     if (!this.local_messages && localStorage.userlog) {
       try {
-          const userlog = JSON.parse(localStorage.getItem('userlog'))
-          if (userlog.name === this.user_name) {
-            this.local_messages = userlog.partner.messages
-            this.partner_name = userlog.partner.name
-          } else {
-            this.local_messages = userlog.messages
-            this.partner_name = userlog.name
-          }
-          for (let i = 0; i < this.local_messages.length; i++) {
-            this.score[this.local_messages[i].category] += 1
-          }
+        const userlog = JSON.parse(localStorage.getItem('userlog'))
+        if (userlog.name === this.user_name) {
+          this.local_messages = userlog.partner.messages
+          this.partner_name = userlog.partner.name
+        } else {
+          this.local_messages = userlog.messages
+          this.partner_name = userlog.name
+        }
+        for (let i = 0; i < this.local_messages.length; i++) {
+          this.score[this.local_messages[i].category] += 1
+        }
       } catch (e) {
         localStorage.removeItem('userlog')
       }

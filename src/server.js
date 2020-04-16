@@ -236,8 +236,8 @@
              name: name
          }
      })
-
      newUser.save(function(error) {
+         console.log("Saving user")
          if (error) {
              response.send(400, { "result": false })
 

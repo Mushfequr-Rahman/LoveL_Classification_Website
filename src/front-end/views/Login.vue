@@ -87,7 +87,7 @@ export default {
           this.dataFromBackend = getResponse.data
           this.loginStatus = 'Login Success!'
           console.log(this.dataFromBackend)
-          this.$router.push({ name: 'DayLove', params: { user_data: this.dataFromBackend } })
+          this.$router.push({ name: 'Landing', params: { user_data: this.dataFromBackend } })
         })
         .catch(function (error) {
           console.log('Error while fetching login updates from server side')
@@ -117,12 +117,12 @@ export default {
 
 #new-user{
   margin: 1.5rem auto;
-  text-align: right;
+  text-align: center;
   font-size: 13px;
 }
 
 #login-form{
-  width: 100%;
-  margin-right: 0;
+  width: 45%;
+  margin: 0 auto;
 }
 </style>
