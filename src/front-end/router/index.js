@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Test from '../views/Test.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
+import Landing from '../views/Landing.vue'
 import DayLove from '../views/DayLove.vue'
 
 Vue.use(VueRouter)
@@ -27,6 +28,12 @@ const routes = [{
         path: '/signup',
         name: 'Signup',
         component: Signup
+    },
+    {
+        path: '/landing',
+        name: 'Landing',
+        component: Landing,
+        props: true
     },
     {
         path: '/daylove',

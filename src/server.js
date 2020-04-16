@@ -403,8 +403,10 @@
       * @param  string username - username of the user we are searching for
       * @param bool isPartner - indicate wheter it is the partner or the main user
       * @param string daterange - indicate which range of dates the messages are from
-      * @return list<messages> - List of messages that fall with in the range.
+      * @return list<messages> - List of messages that fall with in the range.\
+       new Date(12 -10-15)
       */
+
 
      let username = request.query.username;
      let isPartner = request.query.isPartner;
