@@ -117,7 +117,7 @@ block content
             var sentence = $("#message_box").val(); 
             console.log('Message:', sentence); 
             $.ajax({
-                url: "/history",
+                url: "/classify",
                 type: "get", //send it through get method
                 data: { 
                      message: sentence, 

@@ -83,12 +83,13 @@
      name: String,
      messages: [{
          id: Number,
-         time: { type: String, default: Date.now },
+         time: { type: Date, default: Date.now },
          content: String,
          class: {
              type: String,
                  default: "service"
          },
+         category: Number
      }],
      points: {
          touch: Number,
@@ -108,6 +109,7 @@
                  type: String,
                      default: "service"
              },
+             category: Number
          }],
          points: {
              touch: Number,
@@ -173,22 +175,15 @@
              request.session.username = username;
              console.log("Successfully Logged In User");
              console.log(val);
-             response.json(val);
+             //response.json(val);
 
-             /*
-             response.sendFile(response.render("simpleSVG", {
-                   username: val.username,
-                   title: "Welcome " + val.name + " and " + val.partner.name,
-                   points: val.points,
-                   ppoints: val.partner.points
-             }));
-             */
-             //     response.render("main_page", {
-             //         username: val.username,
-             //         title: "Welcome " + val.name + " and " + val.partner.name,
-             //         points: val.points,
-             //         ppoints: val.partner.points
-             //     })
+
+             response.render("main_page", {
+                 username: val.username,
+                 title: "Welcome " + val.name + " and " + val.partner.name,
+                 points: val.points,
+                 ppoints: val.partner.points
+             })
          } else {
              console.log("Password Mismatch");
              response.send({ err: 'Error' });
@@ -325,19 +320,21 @@
          else if (res == 4) result = "touch";
 
 
-         return result;
+         return { result, res };
 
 
      }
 
-     classify(message).then(function(msg_class) {
+
+     classify(message).then(function({ msg_class, category }) {
          User.find({ username: username }).then(function(result) {
              var user = result[0]
              console.log("isPartner:", isPartner)
              var new_message = {
                  content: message,
                  time: new Date(),
-                 class: msg_class
+                 class: msg_class,
+                 category: category
 
              }
              if (isPartner == true) user.messages.push(new_message)
@@ -347,6 +344,7 @@
 
              //TODO: Calculate the new scores:
              classes = ["service", "time", "gift", "touch", "words"]
+
              if (isPartner == true) {
                  var points = user.points;
 
@@ -367,21 +365,21 @@
                      var s_len = user.partner.messages.filter(c => c.class === classes[i]).length;
                      s_len = Math.floor((s_len / length) * 10)
                      console.log(s_len)
-                     console.log(points[classes[i]])
                      points[classes[i]] = s_len
                  }
                  user.partner.points = points;
              }
 
              //console.log(user.messages)
-             console.log("Partner message", user.partner.points)
+             //console.log("Partner message", user.partner.messages)
              user.save(function(error) {
                  if (error) {
                      console.log(error);
                      res.status(404)
 
                  } else {
-                     res.json(msg_class);
+                     console.log("Everyting works perfictly sending class and category", { msg_class, category })
+                     res.json({ "class": msg_class, "category": category });
                  }
              })
          })
@@ -389,6 +387,7 @@
  });
 
 
+<<<<<<< Updated upstream
 app.get("/history", function(request, res) {
    /*
     * @desc Function to get the history of messages
@@ -420,3 +419,42 @@ app.get("/history", function(request, res) {
        res.json(messages);
    });
 });
+=======
+ app.get("/history", function(request, res) {
+     /* 
+      * @desc Function to get the history of messages 
+      * @param  string username - username of the user we are searching for
+      * @param bool isPartner - indicate wheter it is the partner or the main user
+      * @param string daterange - indicate which range of dates the messages are from 
+      * @return list<messages> - List of messages that fall with in the range.   
+      */
+
+     let username = request.query.username;
+     let isPartner = request.query.isPartner;
+     let daterange = request.query.daterange;
+     console.log("daterange: ", daterange);
+     var current_date = new Date();
+     var pastdate;
+     if (daterange == "week") pastdate = current_date.getDate() - 7;
+     else if (daterange == "month") pastdate = current_date.getDate() - 30;
+     else pastdate = current_date.getDate() - 200;
+     User.find({ username: username }).then(function(result) {
+         user = result[0]
+         var messages;
+         if (isPartner == true) messages = user.messages;
+         else messages = user.partner.messages;
+         console.log(messages)
+         messages = messages.filter(function(d) {
+             return (pastdate <= d.date <= current_date);
+         })
+         console.log(messages)
+         res.json(messages);
+     });
+
+
+
+
+
+
+ });
+>>>>>>> Stashed changes
