@@ -183,12 +183,12 @@
                    ppoints: val.partner.points
              }));
              */
-         //     response.render("main_page", {
-         //         username: val.username,
-         //         title: "Welcome " + val.name + " and " + val.partner.name,
-         //         points: val.points,
-         //         ppoints: val.partner.points
-         //     })
+             //     response.render("main_page", {
+             //         username: val.username,
+             //         title: "Welcome " + val.name + " and " + val.partner.name,
+             //         points: val.points,
+             //         ppoints: val.partner.points
+             //     })
          } else {
              console.log("Password Mismatch");
              response.send({ err: 'Error' });
@@ -397,6 +397,8 @@
  });
 
 
+ <<
+ << << < HEAD
  app.get("/history", function(request, res) {
      /*
       * @desc Function to get the history of messages
@@ -428,9 +430,46 @@
          })
          console.log(messages)
          res.json(messages);
-     });
+     }); ===
+     === =
+     app.get("/history", function(request, res) {
+         /*
+          * @desc Function to get the history of messages
+          * @param  string username - username of the user we are searching for
+          * @param bool isPartner - indicate wheter it is the partner or the main user
+          * @param string daterange - indicate which range of dates the messages are from
+          * @return list<messages> - List of messages that fall with in the range.
+          */
+
+         let username = request.query.username;
+         let isPartner = request.query.isPartner;
+         let daterange = request.query.daterange;
+         console.log("daterange: ", daterange);
+         var current_date = new Date();
+         var pastdate;
+         if (daterange == "week") pastdate = current_date.getDate() - 7;
+         else if (daterange == "month") pastdate = current_date.getDate() - 30;
+         else pastdate = current_date.getDate() - 200;
+         User.find({ username: username }).then(function(result) {
+             user = result[0]
+             var messages;
+             if (isPartner == true) messages = user.messages;
+             else messages = user.partner.messages;
+             console.log(messages)
+             messages = messages.filter(function(d) {
+                 return (pastdate <= d.date <= current_date);
+             })
+             console.log(messages)
+             res.json(messages);
+         }); >>>
+         >>> > 3 cc9a616108ca45ee5e155359379319b47135e07
 
 
 
 
- });
+             <<
+             << << < HEAD
+     }); ===
+     === =
+ }); >>>
+ >>> > 3 cc9a616108ca45ee5e155359379319b47135e07
