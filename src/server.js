@@ -396,9 +396,6 @@
 
  });
 
-
- <<
- << << < HEAD
  app.get("/history", function(request, res) {
      /*
       * @desc Function to get the history of messages
@@ -430,8 +427,8 @@
          })
          console.log(messages)
          res.json(messages);
-     }); ===
-     === =
+     });
+
      app.get("/history", function(request, res) {
          /*
           * @desc Function to get the history of messages
@@ -461,15 +458,6 @@
              })
              console.log(messages)
              res.json(messages);
-         }); >>>
-         >>> > 3 cc9a616108ca45ee5e155359379319b47135e07
-
-
-
-
-             <<
-             << << < HEAD
-     }); ===
-     === =
- }); >>>
- >>> > 3 cc9a616108ca45ee5e155359379319b47135e07
+         });
+     });
+ });
