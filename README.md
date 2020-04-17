@@ -25,24 +25,24 @@ In this website, the couples would share one user account and password and have 
 The gratitude journal offers an AI text classifier to help the user to analyze what Love Language type they speak and what aspects their partner values the most.
 
 ## Main Features
-[Front-End]
-- Home Page: Give general introduction to users what are the 5 Love Languages.
-- Test Page: Accessed from the Home Page, users can do a quick evaluation on what type of Love Language they speak.
-- Login Page: For demo purpose, one can use the testing account and password provided in the next section to login, in order to explore the entire features.
-- Signup Page: Provide functions for new user sign up.
-- Landing Page: The couple can view what are their current Love Language distribution.
-- DayLove Page: This is the daily portal where user can view the most recent love messages left by their partner.
-- WriteMassage Page: This is where the user can leave daily love messages to their partner.
+**[Front-End]**
+- **Home Page:** Give general introduction to users what are the 5 Love Languages.
+- **Test Page:** Accessed from the Home Page, users can do a quick evaluation on what type of Love Language they speak.
+- **Login Page:** For demo purpose, one can use the testing account and password provided in the next section to login, in order to explore the entire features.
+- **Signup Page:** Provide functions for new user sign up.
+- **Landing Page:** The couple can view what are their current Love Language distribution.
+- **DayLove Page:** This is the daily portal where user can view the most recent love messages left by their partner.
+- **WriteMassage Page:** This is where the user can leave daily love messages to their partner.
 
-[Back-End]
-- Tensorflow text-classifer: We manually collected 500 love language sentences through a Google Questionnaire, and train a text classifier to automatically classify the text into one of   the Love Langauge category. <br />
+**[Back-End]**
+- **Tensorflow text-classifer:** We manually collected 500 love language sentences through a Google Questionnaire, and train a text classifier to automatically classify the text into one of   the Love Langauge category. <br />
   Link to the google form: (https://docs.google.com/forms/d/e/1FAIpQLSdrkgxtnILEUHjeIZ6xiKkQxiDsH77I52MyxnMt3pBEVetAxg/viewform?usp=sf_link)
-- Login API
-- Sign Up API
-- Classifier API
-- SaveMessage API
-- History Call API
-- MongoDB Database
+- **Login API**
+- **Sign Up API**
+- **Classifier API**
+- **SaveMessage API**
+- **History Call API**
+- **MongoDB Database**
 
 
 ## Testing Account & Password
