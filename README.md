@@ -2,6 +2,11 @@
 # Final Project for Web Application Development (CSCI3230U) 
 
 ## Instructions
+To prepare a directory for the MongoDB database:
+- ``mkdir data``
+- ``mkdir data/db``
+
+
 To run the web app please run from src directory:
 - ``npm install``  (To install all the dependencies)
 - ``npx npm-run-all -p database backend serve``  (To run the database backend and client side scripts)
@@ -26,3 +31,14 @@ the following ports are where we have the different components located:
 - Mohammad Mushfequr Rahman
 - Mei Yu Chen
 - Terry Darmawan Hosea
+
+
+## TroubleShooting 
+
+ You might get some errors trying to installing the dependency "@tensorflow/tfjs-node" this may been solved using the following workarounds: 
+
+ - `npm rebuild @tensorflow/tfjs-node build-addon-from-source`
+ - [Update node and npm](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/?fbclid=IwAR3cvu-FScvVc83U57hbuwuZJ0TXAe5Elo8HUr3bJS85cp0wBb7qO-EIjg0)
+
+ - [Stack Overflow help](https://stackoverflow.com/questions/57537386/cannot-import-tensorflow-tfjs-node-in-nodejs)
+ 
