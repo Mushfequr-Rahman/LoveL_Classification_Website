@@ -42,12 +42,14 @@ export default {
     if (this.user_data) {
       const parsed = JSON.stringify(this.user_data)
       localStorage.userlog = parsed
+      localStorage.username = this.user_data.username
       this.local_user_data = this.user_data
     } else if (!this.user_data && localStorage.userlog) {
       try {
         this.local_user_data = JSON.parse(localStorage.getItem('userlog'))
+        localStorage.username = this.local_user_data.username
       } catch (e) {
-        localStorage.removeItem('userlog')
+        console.log(e)
       }
     }
     // ---------------------------------------------------------------------------------------
@@ -55,9 +57,9 @@ export default {
   watch: {
     // ----Update LocalStorage whenever the props 'user_data' changed. -----------------------
     user_data (newValue) {
-      localStorage.received = 'true'
       const parsed = JSON.stringify(newValue)
       localStorage.userlog = parsed
+      localStorage.username = this.user_data.username
     }
     // ---------------------------------------------------------------------------------------
   }

@@ -9,7 +9,7 @@
               <div class="info-header">
               </div>
               <div class="info-content">
-                  Read the most recent 3 messages {{ partner_name }} write to you.
+                  Read the most recent messages {{ partner_name }} write to you.
                   <br>
                   It seems {{ partner_name }} values your <span :style="{'color': '#f5cb42', 'display': 'inline'}">{{ maxCategory }}</span> the most!
               </div>
@@ -23,7 +23,7 @@
               />
             </div>
             <div class="column is-half">
-              <button class="big-button button is-primary is-inverted is-outlined is-large">Write Something to {{ partner_name }}</button>
+              <button @click="goWriteMessage()" class="big-button button is-primary is-inverted is-outlined is-large">Write Something to {{ partner_name }}</button>
             </div>
           </div>
         </div>
@@ -54,6 +54,11 @@ export default {
       }
     }
   },
+  methods: {
+    goWriteMessage: function () {
+      this.$router.push({ name: 'WriteMessage' })
+    }
+  },
   mounted () {
     // ---- Retrieve local_user_data from localStorage.userlog ------------------------------
     //   The first copy of 'localStorage.userlog' was setup in 'Ladning.vue'
@@ -63,9 +68,13 @@ export default {
         if (userlog.name === this.user_name) {
           this.local_messages = userlog.partner.messages
           this.partner_name = userlog.partner.name
+          localStorage.is_partner = 0
+          localStorage.user_name = userlog.name
         } else {
           this.local_messages = userlog.messages
           this.partner_name = userlog.name
+          localStorage.is_partner = 1
+          localStorage.user_name = userlog.partner.name
         }
         for (let i = 0; i < this.local_messages.length; i++) {
           this.score[this.local_messages[i].category] += 1

@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Landing from '../views/Landing.vue'
 import DayLove from '../views/DayLove.vue'
+import WriteMessage from '../views/WriteMessage.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [{
         name: 'DayLove',
         component: DayLove,
         props: true
+    },
+    {
+        path: '/writemessage',
+        name: 'WriteMessage',
+        component: WriteMessage
     }
 ]
 

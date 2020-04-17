@@ -305,7 +305,7 @@
  var fs = require('fs');
 
 
- app.get("/classify", function(request, res) {
+ app.post("/classify", function(request, res) {
      /*
       * @desc Function to classify daily message and send them to the database:
       * @param string message - message to classify
@@ -313,12 +313,10 @@
       * @param bool isPartner - Check to see if the patner is posting the message
       * @return string class - class which the message belongs to.
       */
-
-
-
-     let message = request.query.message;
-     let username = request.query.username;
-     let isPartner = request.query.isPartner;
+     let message = request.body.message;
+     let username = request.body.username;
+     let isPartner = request.body.isPartner;
+     console.log("Message: ", request)
      console.log("Recieved message to classify: ", message);
 
      async function classify(message) {
@@ -388,7 +386,7 @@
                  content: message,
                  time: new Date(),
                  class: msg_class,
-                 category: category
+                 category: category+1
 
              }
              if (isPartner == true) user.messages.push(new_message)

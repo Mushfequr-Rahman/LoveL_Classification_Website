@@ -94,6 +94,6 @@ export default {
   background-color: #a16dc2;
 }
 .touch{
-  background-color: #ff8b4d;
+  background-color: #ffa3e8;
 }
 </style>

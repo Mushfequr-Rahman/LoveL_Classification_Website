@@ -51,7 +51,7 @@ export default {
     return {
       questions: [],
       index: 0,
-      // "1": "Words of Affirmation",
+      //   "1": "Words of Affirmation",
       //   "2": "Act of Service",
       //   "3": "Receiving Gift",
       //   "4": "Quality Time",
