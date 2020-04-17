@@ -36,7 +36,7 @@
           </div>
       </div>
       <div class="column">
-        <button @click="submitClassify()" class="button is-rounded is-warning login-button" v-show="viz">Confirm</button>
+        <button @click="submitToDB()" class="button is-rounded is-warning login-button" v-show="viz">Confirm</button>
         <span v-show="!viz"> Submit success! The LoveL is {{ love_class }} </span>
       </div>
    </div>
@@ -98,6 +98,13 @@ export default {
         }
       }
     },
+    submitToDB: function () {
+      if (!this.love_class) {
+        this.submitClassify()
+      } else {
+        this.submitMessage()
+      }
+    },
     submitClassify: async function () {
       if (!this.message_info.message) {
         alert('Please enter something before you submit!')
@@ -117,6 +124,32 @@ export default {
           console.log(this.dataFromBackend)
           const classifyCategory = this.dataFromBackend.category + 1
           this.chooseCategory(classifyCategory)
+          this.viz = false
+        })
+        .catch(function (error) {
+          console.log('Error while classifying from server side')
+          console.log(error)
+          this.error = error
+        })
+    },
+    submitMessage: async function () {
+      if (!this.message_info.message) {
+        alert('Please enter something before you submit!')
+        return
+      }
+      const url = 'http://localhost:3000/savemessage'
+      console.log('message' + this.message_info.message)
+      axios.post(url, {
+        content: this.message_info.message,
+        username: this.username,
+        isPartner: this.message_info.is_partner,
+        category: parseInt(this.loveL[this.love_class]),
+        time: this.message_info.date_time
+      })
+        .then((getResponse) => {
+          console.log('GET Response')
+          this.dataFromBackend = getResponse.data
+          console.log(this.dataFromBackend)
           this.viz = false
         })
         .catch(function (error) {

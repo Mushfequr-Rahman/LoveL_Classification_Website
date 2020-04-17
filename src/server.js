@@ -479,14 +479,16 @@
       * @param string username - user who postesd the message
       * @param bool isPartner - Check to see if the patner is posting the message
       * @param number category - category which the message belongs to.
-      * @param string time - time of message 
+      * @param string time - time of message
       */
-
+     console.log('TImE---------------------------------------------------')
+     console.log(request.body.time)
      let isPartner = request.body.isPartner;
      let content = request.body.content;
      let username = request.body.username;
      let category = request.body.category;
      let date = new Date(request.body.time);
+
      classes = ["words", "service", "gift", "time", "touch"]
 
      User.find({ username: username }).then(function(result) {
