@@ -12,7 +12,7 @@ After you have all the servers running please run the following command in anoth
 the following ports are where we have the different components located:    
 - http://localhost:3000/ - Server side client for API testing purposes.
 - http://localhost:9000/ - Server hosting the MongoDB database
-- http://localhost:9030/ - Server running the Vue Client. 
+- http://localhost:9050/ - Server running the Vue Client. 
             
 
 ## Acknowledgements
