@@ -2,7 +2,7 @@
 # Final Project for Web Application Development (CSCI3230U)
 
 ## Instructions
-To prepare a directory for the MongoDB database:
+To prepare a directory for the MongoDB database in src directory:
 - ``mkdir data``
 - ``mkdir data/db``
 
@@ -72,3 +72,4 @@ In the login page, use the following username account and password to use the pr
  - [Update node and npm](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/?fbclid=IwAR3cvu-FScvVc83U57hbuwuZJ0TXAe5Elo8HUr3bJS85cp0wBb7qO-EIjg0)
 
  - [Stack Overflow help](https://stackoverflow.com/questions/57537386/cannot-import-tensorflow-tfjs-node-in-nodejs)
+ - Node version needs to be at least v10.20 incase you bump into tensorflow error during nodemon server.js
