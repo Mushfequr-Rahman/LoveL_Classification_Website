@@ -16,7 +16,25 @@
             "question": "Which of the followings means more to you?",
             "op1": "It makes me feel more loved when I receive a surprise gift from my partner.",
             "op2": "There is nothing better than just staying next to my partner and enjoy our private time.",
-            "answer": [2, 4]
+            "answer": [3, 4]
+        },
+        {
+            "question": "Which of the followings means more to you?",
+            "op1": "When my partner encourages me when I am down, I feel it means a lot to me.",
+            "op2": "There is nothing more satisfying than a warm hug from my partner",
+            "answer": [1, 5]
+        },
+        {
+            "question": "Which of the followings means more to you?",
+            "op1": "I love my partner offers help on the thing I have difficulty dealing with",
+            "op2": "When my lover went traveling and bring me surprising gift shows that I am always in his/her heart.",
+            "answer": [2, 3]
+        },
+        {
+            "question": "Which of the followings means more to you?",
+            "op1": "Having a period of uninterrupted time during a week is my happest thing with my partner.",
+            "op2": "I need to hear compliment from my partner, because that made me feel complete.",
+            "answer": [4, 1]
         }
     ]
 }]
