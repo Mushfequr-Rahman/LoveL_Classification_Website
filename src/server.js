@@ -472,6 +472,48 @@
  });
 
 
+ app.post("/savemessage", function(request, response) {
+     /*
+      * @desc Function to add daily message and send them to the database:
+      * @param string content - message to classify
+      * @param string username - user who postesd the message
+      * @param bool isPartner - Check to see if the patner is posting the message
+      * @param number category - category which the message belongs to.
+      * @param string time - time of message 
+      */
+
+     let isPartner = request.body.isPartner;
+     let content = request.body.content;
+     let username = request.body.username;
+     let category = request.body.category;
+     let date = new Date(request.body.time);
+     classes = ["words", "service", "gift", "time", "touch"]
+
+     User.find({ username: username }).then(function(result) {
+         let user = result[0];
+         var new_message = {
+             content: content,
+             category: category,
+             time: date,
+             class: classes[content - 1]
+         }
+         if (isPartner == true) user.messages.push(new_message);
+         else user.partner.messages.push(new_message);
+
+         user.save(function(error) {
+             if (error) {
+                 console.log("Error", error)
+                 response.send(400, { result: "false" })
+             } else {
+                 response.send(200, { result: "true" })
+             }
+         })
+
+     });
+
+ })
+
+
  let messageHitory = [];
  io.on('connection', function(socket) {
      console.log("User Connected");
